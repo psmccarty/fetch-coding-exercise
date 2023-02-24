@@ -1,0 +1,68 @@
+1) I used the Java programming language since that is the one I am most
+familiar and provides a wide range of built in libraries that are perfect for
+the job. I used simple libraries like java.util.Scanner and java.io.File for
+reading in the data of the CSV file. The java.time.DateTime library was also
+extremely useful because I could easily convert the times provided by the
+file into a more useful format for comparisons. I created Transaction objects that each
+represent one transaction from the dataset. That way I could organize them into a
+Priority Queue based on when they were created. Choosing a priority Queue
+for this tasks allows me to save lots of time since I don't need to directly
+sort the data. All I need to do is pass through the file once and insert the
+transactions into the Priority Queue which takes log(N) time each. Then I can
+remove the transactions each in log(N) time so I can do the computation for
+the payer. Because of the way I structured my priority Queue, I will always
+remove the oldest transaction first. I also relied heavily on the
+java.util.concurrent built in library since it gives support for the
+multithreaded application that I built. Each row can be processed concurrently
+without interfering with the processing of any other row. So I decided to use
+as many CPU cores as are available in the user's machine to achieve this task.
+On large datasets this should greatly speed up performance.
+
+2) My solution requires transforming each row of data into an object using
+various threads executing concurrently, then inserting transactions with
+positive points into a priority queue, and values with negative transactions
+into a stack. Next I process the negative values first, regardless of the time
+when they originate. I do this because if we simply process the transactions
+in order then there could be a case where a payer has a negative balance at
+the end. And this is not allowed under our rules. After processing these into
+a HashMap where keys are the payers and values are their current balances, the program does the same for transactions with positive points. This time taking
+into account the date when these transactions occurred. Finally the result is
+printed to the screen in the specified format.
+
+A disadvantage of my solution is that since I used a hashmap, my result is
+printed to the screen is in a different order than the one shown in the
+example. My solution contains the same data but some of the rows might be in
+different orders. I was ok with this because using a hashmap in
+this way allowed my to greatly speed up my application and I don't believe the
+order in which the output is printed is all that important as long as it
+contains the same information. 
+
+Another disadvantage is that since I split rows
+of data by commas, if a comma is used as something other than a delimiter,
+that would cause my program to misbehave. A similar thing might happen if
+double quotes are used as a part of the data. If dates do not have an extra character at the end, my program might fail. In
+general my program assumes the data in the CSV is formatted just as it is in the
+example. The one way in which my program is more robust is that if column are
+out of order or new columns are added into the CSV my program can cope with
+that. As long as there are columns "payer", "points" and "timestamp" in any
+order it will be able to parse the data.
+
+3) One of my favorite projects so far was an airline shipping program. This
+was a group assignment for a class. The requirements were that we create an
+application that extended Dijkstra's shortest path algorithm in some way. We had
+to come up with an idea for this on our own. The group didn't have to many
+ideas but I thought of an app where we could process a dataset of cities
+represented as nodes in a graph and paths between these nodes would be edges
+where the distances would be the edge costs. We allow the user to select a
+staring city and an ending city, as well as a variety of planes that have
+different ranges. That way, certain planes may need to choose inferior path
+because they do not have the range to take certain paths. This allows the user
+to do a cost benefit analysis for each plane. I was responsible for
+generating the data by calculating distances using longitudes and latitudes,
+creating the algorithm for calculating costs, and creating a set of functions
+so the frontend developer of our team could execute the commands specified by
+the user. A challenge of this assignment was that some of my group member were
+not good at responding to messages and did not follow the layout we had agreed
+on. Because of this I had to do more work than was expected of me for us to
+have a working application.
+
