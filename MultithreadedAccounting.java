@@ -66,7 +66,7 @@ public class MultithreadedAccounting{
 		// process all negative transactions first so we don't accidentaly leave a payer negative
 		while(!negativeTransactions.empty()){
 			Transaction t = negativeTransactions.pop();
-			if(!payerMap.containsKey(t.payer)){ // 
+			if(!payerMap.containsKey(t.payer)){
 				payerMap.put(t.payer, t.points);
 			} else{
 				payerMap.replace(t.payer, payerMap.get(t.payer) + t.points);	
@@ -195,7 +195,6 @@ public class MultithreadedAccounting{
 			String[] wordsArr = header.split(",");
 
 			// populate the array with the correct information
-			//indexes[3] =  wordsArr.length;
 			for(int i = 0; i < wordsArr.length; i++){
 				if(wordsArr[i].trim().equals(PAYER)){
 					indexes[0] = i;
@@ -205,20 +204,18 @@ public class MultithreadedAccounting{
 					indexes[2] = i;
 				}
 			}
-		
 		return indexes;
 	}
 
 
 	/**
-	* Returns an array containing the title, authors, and isbn13 values of the fiven input
+	* Returns an array containing the payer, points and timestamp
 	*
 	* @param row the specific row from the CSV file
-	* @param titleIdx the column where "title" is located
-	* @param authIdx the column where "authors" is located
-	* @param isbn13Idx the column where "isbn13" is located
-	* @param numCols the number of columns in the dataset
-	* @return an array of Strings containing the information of "title", "authors" and "isbn13"
+	* @param payerIdx the column where "payer" is located
+	* @param pointsIdx the column where "points" is located
+	* @param timestampIdx the column where "timestamp" is located
+	* @return an array of Strings containing the information of "payer", "points" and "timestamp"
 	*/
 	protected static String[] getInfo(String row, int payerIdx, int pointsIdx, int timestampIdx){
 		
@@ -227,7 +224,6 @@ public class MultithreadedAccounting{
 		row = row.replaceAll("\"", ""); // remove double quotes since they are used to contain data
 		String[] wordArr = row.split(","); // commas a delimiters
 		
-			
 		info[0] = wordArr[payerIdx];
 		info[1] = wordArr[pointsIdx];
 		info[2] = wordArr[timestampIdx];
@@ -350,7 +346,3 @@ class MyRunnable implements Runnable{
 		return stack;	
 	}
 }
-
-
-
-
