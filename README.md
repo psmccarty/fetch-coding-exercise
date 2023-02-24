@@ -15,4 +15,4 @@ and press enter. Next, enter the command **java MultithreadedAccounting \<input 
 
 
 
-<img src="exampleCompile.png" width=350/>
+<img src="exampleExecution.png" width=550/>
